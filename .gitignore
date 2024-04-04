@@ -1,0 +1,7 @@
+passfile
+userfile
+secure*
+logs/*
+nbmetrics/*
+*.pem
+*.jar

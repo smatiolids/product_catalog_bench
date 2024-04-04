@@ -1,0 +1,15 @@
+description: 'Magalu Product Search with BERT Embeddings'
+scenarios:
+  default:
+    query1: run driver=cqld4 tags=block:"query1" cycles=100k cyclerate=5k threads=auto
+
+bindings:
+  emb :   HashedFloatVectors(384); ToCqlVector();
+
+blocks:
+  query1:
+    params:
+      cl: 'TEMPLATE(read_cl,LOCAL_ONE)'
+    ops:
+      statements:  SELECT id, title FROM TEMPLATE(keyspace,baselines).product_catalog_emb ORDER BY emb ANN OF {emb} LIMIT 100 
+      
